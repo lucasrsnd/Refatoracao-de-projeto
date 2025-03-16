@@ -56,6 +56,10 @@ Atualização do Controller de Métricas de Vendas -> O controlador de métricas
 }
 ```
 
+# Captura de Tela (após melhoria)
+
+![imagem](/Sistema%20de%20Gerenciamento%20de%20Restaurante/docs/image/ImagemObserver.png);
+
 # Correções e Melhorias Gerais
 - Desacoplamento: As classes de interface gráfica agora não precisam mais depender diretamente da lógica de negócios. A classe Restaurante emite as notificações, enquanto os controladores, como o de métricas de vendas, se inscrevem para receber essas notificações sem precisar interagir diretamente com a lógica de finalização de pedidos.
 - Facilidade de Extensão: O sistema está agora preparado para ser estendido com novos tipos de notificações ou eventos sem modificar as classes existentes. Isso facilita a manutenção do código e a adição de novas funcionalidades.
