@@ -9,26 +9,25 @@ public class Restaurante {
     private List<Mesa> mesas;
     private List<Cliente> filaDeEspera;
     private List<Delivery> deliverys;
-    private List<PedidoFinalizado> pedidosFinalizados;
+    private List<Pedido> pedidosFinalizados;  
+    private SistemaDeNotificacao sistemaDeNotificacao;
 
-    public Restaurante() {
+    public Restaurante(SistemaDeNotificacao sistemaDeNotificacao) {
         this.mesas = new ArrayList<>();
         this.filaDeEspera = new ArrayList<>();
         this.deliverys = new ArrayList<>();
         this.pedidosFinalizados = new ArrayList<>();
+        this.sistemaDeNotificacao = sistemaDeNotificacao;
         inicializarMesas();
     }
 
     private void inicializarMesas() {
-        // 4 mesas para até 4 pessoas
         mesas.addAll(IntStream.range(0, 4)
                               .mapToObj(i -> new Mesa(4))
                               .collect(Collectors.toList()));
-        // 4 mesas para até 6 pessoas
         mesas.addAll(IntStream.range(0, 4)
                               .mapToObj(i -> new Mesa(6))
                               .collect(Collectors.toList()));
-        // 2 mesas para até 8 pessoas
         mesas.addAll(IntStream.range(0, 2)
                               .mapToObj(i -> new Mesa(8))
                               .collect(Collectors.toList()));
@@ -46,8 +45,8 @@ public class Restaurante {
         return deliverys;
     }
 
-    public List<PedidoFinalizado> getPedidosFinalizados() {
-        return pedidosFinalizados;
+    public List<Pedido> getPedidosFinalizados() {
+        return pedidosFinalizados;  
     }
 
     public void adicionarDelivery(Delivery delivery) {
@@ -72,7 +71,10 @@ public class Restaurante {
             mesa.getPedidos().forEach(p -> pedido.adicionarItens(p.getItens()));
             mesa.finalizarPedido();
             mesa.getClientes().clear();
-            pedidosFinalizados.add(new PedidoFinalizado(pedido, metodoPagamento, desconto, valorFinal, prazoRecebimento));
+            pedidosFinalizados.add(pedido);  
+            
+            sistemaDeNotificacao.notificar("Métricas de vendas atualizadas!");
+
             realocarClientes();
         } else {
             throw new IllegalArgumentException("Número da mesa inválido");

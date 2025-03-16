@@ -13,7 +13,6 @@ public class Pedido {
     }
 
     public void adicionarItem(Item item, int quantidade) {
-        // Usando IntStream para adicionar múltiplas cópias de um item
         List<Item> novosItens = IntStream.range(0, quantidade)
                                          .mapToObj(i -> item)
                                          .collect(Collectors.toList());
@@ -29,7 +28,6 @@ public class Pedido {
     }
 
     public double getValorTotal() {
-        // Usando stream para calcular o valor total
         return itens.stream()
                     .mapToDouble(Item::getPreco)
                     .sum();

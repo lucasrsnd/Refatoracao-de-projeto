@@ -1,6 +1,7 @@
 package dev_restaurante.controller;
 
 import dev_restaurante.model.Restaurante;
+import dev_restaurante.model.SistemaDeNotificacao;
 import dev_restaurante.view.ReceptionView;
 import dev_restaurante.view.AddClientView;
 import dev_restaurante.view.ViewClientsView;
@@ -14,10 +15,12 @@ import java.awt.event.ActionListener;
 public class ReceptionController {
     private Restaurante restaurante;
     private ReceptionView receptionView;
+    private SistemaDeNotificacao sistemaDeNotificacao;  // Instanciar o SistemaDeNotificacao
 
-    public ReceptionController(Restaurante restaurante, ReceptionView receptionView) {
+    public ReceptionController(Restaurante restaurante, ReceptionView receptionView, SistemaDeNotificacao sistemaDeNotificacao) {
         this.restaurante = restaurante;
         this.receptionView = receptionView;
+        this.sistemaDeNotificacao = sistemaDeNotificacao;  // Atribuir ao sistemaDeNotificacao
 
         this.receptionView.getBotaoAdicionarCliente().addActionListener(new ActionListener() {
             @Override
@@ -56,7 +59,7 @@ public class ReceptionController {
             public void actionPerformed(ActionEvent e) {
                 receptionView.setVisible(false);
                 MetricasVendasView metricasVendasView = new MetricasVendasView();
-                new MetricasVendasController(restaurante, metricasVendasView, receptionView);
+                new MetricasVendasController(restaurante, metricasVendasView, receptionView, sistemaDeNotificacao);  // Passar o sistemaDeNotificacao
                 metricasVendasView.setVisible(true);
             }
         });
